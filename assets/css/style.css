@@ -44,3 +44,12 @@ button {
     margin-top: 100px;
     text-align: center;
 }
+.footer {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #004d00;
+    color: white;
+    text-align: center;
+    border-top: 4px solid #00cc44;
+    font-size: 14px;
+}
