@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.container {
+    background-color: #1db954;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    text-align: center;
+    width: 300px;
+}
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+}
+button {
+    background-color: #000;
+    color: #1db954;
+    font-weight: bold;
+    cursor: pointer;
+}
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #1db954;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.player {
+    margin-top: 100px;
+    text-align: center;
+}
