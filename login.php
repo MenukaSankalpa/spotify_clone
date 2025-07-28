@@ -6,6 +6,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
+    // Check for hardcoded admin
+    if ($username === 'admin' && $password === 'admin123') {
+        $_SESSION['user_id'] = 0; // Dummy ID for admin
+        $_SESSION['username'] = 'admin';
+        header("Location: admin.php");
+        exit();
+    }
+
+    // Check regular user in database
     $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -18,18 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $db_password)) {
             $_SESSION['user_id'] = $id;
             $_SESSION['username'] = $db_username;
-
-            // Redirect admin
-            if ($db_username === 'admin') {
-                header("Location: admin.php");
-            } else {
-                header("Location: player.php");
-            }
+            header("Location: player.php");
             exit();
         }
     }
 
-    // If login fails
+    // Invalid login
     echo "<script>alert('Invalid credentials'); window.location.href='index.php';</script>";
 }
 ?>
