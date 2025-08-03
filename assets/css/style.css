@@ -1,55 +1,122 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #121212;
-    color: white;
+/* Import Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212; /* Spotify dark background */
+    color: #FFFFFF;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    flex-direction: column;
 }
-.container {
-    background-color: #1db954;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    text-align: center;
-    width: 300px;
-}
-input, button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-}
-button {
-    background-color: #000;
-    color: #1db954;
-    font-weight: bold;
-    cursor: pointer;
-}
-.navbar {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    padding: 10px 20px;
-    background-color: #1db954;
+
+/* Header */
+header {
+    background-color: #1DB954; /* Spotify green */
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.player {
-    margin-top: 100px;
-    text-align: center;
+
+header h1 a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5rem;
 }
-.footer {
-    margin-top: 50px;
-    padding: 20px;
-    background-color: #004d00;
-    color: white;
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main layout */
+main {
+    flex: 1;
+    padding: 40px 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #000;
+    color: #fff;
     text-align: center;
-    border-top: 4px solid #00cc44;
-    font-size: 14px;
+    padding: 15px 0;
+    font-size: 0.9rem;
+}
+
+/* Login/Register form container */
+.login-container, .register-container {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.login-container h2,
+.register-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1DB954;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2b2b2b;
+    color: white;
+}
+
+form input:focus {
+    outline: 2px solid #1DB954;
+}
+
+/* Buttons */
+button {
+    background-color: #1DB954;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #17a94a;
+}
+
+/* Error messages */
+.error {
+    background-color: #ff4c4c;
+    color: white;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    text-align: center;
 }
