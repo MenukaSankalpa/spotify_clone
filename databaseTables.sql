@@ -33,3 +33,9 @@ CREATE TABLE consent_log (
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+/*only for testing purposes*/
+ALTER TABLE songs 
+ADD COLUMN file_path VARCHAR(255) NOT NULL,
+ADD COLUMN cover_path VARCHAR(255) NOT NULL,
+ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
