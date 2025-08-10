@@ -42,11 +42,11 @@ body {
     font-family: 'Poppins', sans-serif;
     display: flex;
     margin: 0;
-    background: #f8f9fa;
+    background: #f4f6f8;
 }
 .sidebar {
     width: 220px;
-    background: #2d3436;
+    background: #1e272e;
     color: #fff;
     padding: 20px;
     height: 100vh;
@@ -57,61 +57,81 @@ body {
 }
 .sidebar a {
     display: block;
-    color: #dfe6e9;
+    color: #d2dae2;
     padding: 10px 0;
     text-decoration: none;
+    transition: color 0.3s;
 }
 .sidebar a:hover {
     color: #00cec9;
 }
 .main-content {
     flex: 1;
-    padding: 20px;
+    padding: 30px;
+}
+h1 {
+    font-weight: 600;
+    color: #2f3640;
+    margin-bottom: 20px;
 }
 .table {
     width: 100%;
     border-collapse: collapse;
     background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 .table th, .table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
     text-align: left;
 }
 .table th {
     background: #0984e3;
     color: #fff;
+    font-weight: 600;
+}
+.table tr:hover {
+    background: #f1f3f5;
 }
 .actions form {
     display: inline-block;
 }
-.actions button {
+button {
+    font-size: 14px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+.btn-update {
+    background: #00b894;
+    color: #fff;
+}
+.btn-update:hover {
+    background: #019474;
+}
+.btn-delete {
     background: #d63031;
     color: #fff;
-    border: none;
-    padding: 6px 10px;
-    cursor: pointer;
-    border-radius: 5px;
 }
-.actions button:hover {
-    background: #ff7675;
+.btn-delete:hover {
+    background: #ff4d4d;
+}
+.skip-form {
+    display: flex;
+    gap: 6px;
+    align-items: center;
 }
 .skip-form input[type="number"] {
     width: 60px;
-    padding: 5px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
     text-align: center;
-}
-.skip-form button {
-    background: #00b894;
-    color: #fff;
-    border: none;
-    padding: 6px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-.skip-form button:hover {
-    background: #55efc4;
+    font-size: 14px;
 }
 </style>
 </head>
@@ -136,18 +156,18 @@ body {
             <tr>
                 <td><?= htmlspecialchars($u['id']) ?></td>
                 <td><?= htmlspecialchars($u['username']) ?></td>
-                <td style="font-size: 12px;"><?= htmlspecialchars($u['password']) ?></td>
+                <td style="font-size: 12px; color:#555;"><?= htmlspecialchars($u['password']) ?></td>
                 <td>
                     <form method="POST" class="skip-form">
                         <input type="hidden" name="user_id" value="<?= $u['id'] ?>">
                         <input type="number" name="skip_limit" min="0" value="<?= $u['skip_limit'] ?>">
-                        <button type="submit">Update</button>
+                        <button type="submit" class="btn-update">Update</button>
                     </form>
                 </td>
                 <td class="actions">
-                    <form method="POST">
+                    <form method="POST" onsubmit="return confirm('Delete this user?')">
                         <input type="hidden" name="delete_id" value="<?= $u['id'] ?>">
-                        <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+                        <button type="submit" class="btn-delete">Delete</button>
                     </form>
                 </td>
             </tr>
