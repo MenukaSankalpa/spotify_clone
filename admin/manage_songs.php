@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['song_file']) && isse
         move_uploaded_file($songFile['tmp_name'], $songPath);
         move_uploaded_file($coverImage['tmp_name'], $coverPath);
 
-        $stmt = $conn->prepare("INSERT INTO songs (title, file_path, cover_path) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO songs (title, file_path, cover_image) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $title, $songName, $coverName);
         $stmt->execute();
         $stmt->close();
@@ -41,12 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['song_file']) && isse
 // Handle delete
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
-    $result = $conn->query("SELECT file_path, cover_path FROM songs WHERE id = $id");
+    $result = $conn->query("SELECT file_path, cover_image FROM songs WHERE id = $id");
     $song = $result->fetch_assoc();
 
     if ($song) {
-        unlink("../uploads/songs/" . $song['file_path']);
-        unlink("../uploads/covers/" . $song['cover_path']);
+        if (file_exists("../uploads/songs/" . $song['file_path'])) {
+            unlink("../uploads/songs/" . $song['file_path']);
+        }
+        if (file_exists("../uploads/covers/" . $song['cover_image'])) {
+            unlink("../uploads/covers/" . $song['cover_image']);
+        }
         $conn->query("DELETE FROM songs WHERE id = $id");
     }
     header("Location: manage_songs.php");
@@ -68,7 +72,7 @@ $songs = $conn->query("SELECT * FROM songs ORDER BY created_at DESC");
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #121212;
+      background: linear-gradient(135deg, #1db954 0%, #191414 100%);
       color: #fff;
       display: flex;
     }
@@ -179,6 +183,7 @@ $songs = $conn->query("SELECT * FROM songs ORDER BY created_at DESC");
       color: #66ff66;
       margin-left: 10px;
       text-decoration: none;
+      font-size: 18px;
     }
     .song-item a:hover {
       color: #00ff99;
@@ -218,12 +223,13 @@ $songs = $conn->query("SELECT * FROM songs ORDER BY created_at DESC");
     <h2>All Songs</h2>
     <?php while($song = $songs->fetch_assoc()): ?>
       <div class="song-item">
-        <img src="../uploads/covers/<?php echo htmlspecialchars($song['cover_path']); ?>" alt="Cover">
+        <img src="../uploads/covers/<?php echo htmlspecialchars($song['cover_image']); ?>" alt="Cover">
         <div>
           <strong><?php echo htmlspecialchars($song['title']); ?></strong>
         </div>
         <audio controls>
           <source src="../uploads/songs/<?php echo htmlspecialchars($song['file_path']); ?>" type="audio/mpeg">
+          Your browser does not support the audio element.
         </audio>
         <a href="edit_song.php?id=<?php echo $song['id']; ?>"><i class="fas fa-edit"></i></a>
         <a href="?delete=<?php echo $song['id']; ?>" onclick="return confirm('Are you sure to delete this song?')">
