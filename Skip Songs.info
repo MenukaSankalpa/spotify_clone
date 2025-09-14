@@ -1,0 +1,5 @@
+| skip\_count | last\_skip\_reset | Admin action | User behavior                                    |
+| ----------- | ----------------- | ------------ | ------------------------------------------------ |
+| 6           | 12:00             | Add +4       | skipCount becomes 10 → user can skip 10 times    |
+| 10          | 12:00             | none         | skips continue until 10                          |
+| 10          | 13:01             | none         | reset happens → skipCount = 0, new 1-hour starts |
